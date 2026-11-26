@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="ru"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>MENU STUDIO</title>
+<style>
+:root{--bg:#f4f1ea;--fg:#1d1b18;--mut:#6b655c;--card:#fff;--ok:#1f7a4d;--line:#d9d3c7}
+@media(prefers-color-scheme:dark){:root{--bg:#14110f;--fg:#efe9dd;--mut:#a39b8d;--card:#1f1b18;--ok:#5bd39a;--line:#383229}}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif;padding:20px;max-width:560px;margin-inline:auto}
+h1{font-size:24px;margin:12px 0 4px}p{color:var(--mut)}.ok{color:var(--ok);font-weight:600}
+.card{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:14px;margin:14px 0}
+input[type=file]{width:100%;padding:10px}img,video{max-width:100%;border-radius:8px;margin-top:10px;display:block}
+</style></head><body>
+<h1>MENU STUDIO</h1>
+<p class="ok">✅ Связь работает: эта страница открылась по постоянному адресу.</p>
+<div class="card">
+<strong>Проверка выбора файла</strong>
+<p>Нажмите кнопку и выберите фото или видео из галереи. Файл никуда не отправляется, он только покажется здесь.</p>
+<input type="file" id="f" accept="image/*,video/*">
+<p id="info"></p><div id="pv"></div>
+</div>
+<script>
+const f=document.getElementById('f'),info=document.getElementById('info'),pv=document.getElementById('pv');
+f.onchange=()=>{
+  const file=f.files[0];pv.replaceChildren();if(!file){info.textContent='Файл не выбран.';return}
+  info.textContent='Выбрано: '+file.name+' · '+(file.size/1048576).toFixed(1)+' МБ · '+(file.type||'тип неизвестен');
+  const u=URL.createObjectURL(file);
+  const el=file.type.startsWith('video')?document.createElement('video'):document.createElement('img');
+  el.src=u;if(el.tagName==='VIDEO'){el.controls=true;el.playsInline=true}
+  pv.append(el);
+};
+</script></body></html>
